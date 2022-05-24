@@ -3,3 +3,7 @@
 *.o
 .idea
 .clang-format
+cmake-build-debug
+cmake-build-sipeed-longan-nano
+CMakeLists.txt
+CMakeListsPrivate.txt

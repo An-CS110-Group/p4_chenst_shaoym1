@@ -1,7 +1,8 @@
 #include "assembly.h"
-#include "generateMap.c"
+#include "generateMap.h"
 #include "lcd/lcd.h"
 #include "utils.h"
+#include "lcd/img.h"
 #include <string.h>
 
 void Inp_init(void) { gpio_init(GPIOA, GPIO_MODE_IN_FLOATING, GPIO_OSPEED_50MHZ, GPIO_PIN_8); }
@@ -25,7 +26,8 @@ int main(void) {
     // YOUR CODE HERE
     LCD_Clear(BLACK);
     //    LCD_Fill(0, 53, 160, 60, WHITE60);
-    LCD_ShowString(20, 20, "qwe", MAGENTA);
+    LCD_ShowPic(0, 0, 11, 19, cactus1);
+    LCD_ShowPic(20, 0, 31, 19, cactus2);
 
     //    while (1) {
     //        LCD_Fill(0, 53, 160, 60, WHITE60);

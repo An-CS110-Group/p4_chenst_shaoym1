@@ -1,6 +1,4 @@
-#ifndef GENERATE_MAP_C
-#define GENERATE_MAP_C
-
+#include "generateMap.h"
 #include <stdlib.h>
 
 char probability[50] = {4,  7,  11, 11, 15, 15, 19, 19, 23, 23, 23, 26, 26, 26, 30, 30, 30, 34, 34, 34, 38, 38, 38, 38, 42,
@@ -9,5 +7,3 @@ char probability[50] = {4,  7,  11, 11, 15, 15, 19, 19, 23, 23, 23, 26, 26, 26, 
 int getNextObs(int prev, float difficulty) { return prev + (int) (difficulty * (float) (1000 + 21 * probability[rand() % 99])); }
 
 int displayRandGnd();
-
-#endif//GENERATE_MAP_C

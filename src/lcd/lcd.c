@@ -653,23 +653,33 @@ void LCD_ShowNum1(u16 x,u16 y,float num,u8 len,u16 color)
        Entry data: x, y starting point coordinates
        Return value: None
 ******************************************************************************/
-void LCD_ShowPicture(u16 x1,u16 y1,u16 x2,u16 y2)
-{
-	int i;
-	LCD_Address_Set(x1,y1,x2,y2);
-	for(i=0;i<12800;i++)
-	{ 	
-		// LCD_WR_DATA8(image[i*2+1]);
-		LCD_WR_DATA8(image[i]);
-	}			
+void LCD_ShowPicture(u16 x1, u16 y1, u16 x2, u16 y2) {
+    int i;
+    LCD_Address_Set(x1, y1, x2, y2);
+    for (i = 0; i < 12800; i++) {
+        // LCD_WR_DATA8(image[i*2+1]);
+        LCD_WR_DATA8(image[i]);
+    }
 }
 
-void LCD_ShowLogo(void)
-{
-	int i;
-	LCD_Address_Set(0,0,159,75);
-	for(i=0;i<25600;i++)
-	{
-		LCD_WR_DATA8(logo_bmp[i]);
-	}			
+
+void LCD_ShowPic(u16 x1, u16 y1, u16 x2, u16 y2, u8 *img) {
+    LCD_Address_Set(x1, y1, x2, y2);
+    int w = x2 - x1 + 1, h = y2 - y1 + 1;
+    for (int i = 0; i < w * h * 2; i++) { LCD_WR_DATA8(img[i]); }
+}
+
+void LCD_ShowPic_Leave_Empty(u16 x1, u16 y1, u16 x2, u16 y2, u8 *img) {
+    LCD_Address_Set(x1, y1, x2, y2);
+    int w = x2 - x1 + 1, h = y2 - y1 + 1;
+    for (int i = 0; i < w * h * 2; i++) {
+        if (img[i] != 0) LCD_WR_DATA8(img[i]);
+    }
+}
+
+
+void LCD_ShowLogo(void) {
+    int i;
+    LCD_Address_Set(0, 0, 159, 75);
+    for (i = 0; i < 25600; i++) { LCD_WR_DATA8(logo_bmp[i]); }
 }
