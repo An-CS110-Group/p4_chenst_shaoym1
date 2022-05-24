@@ -1,4 +1,4 @@
-PY = python3 # you may need to modify this line
+PY = python3.9 # you may need to modify this line
 
 all:
 	$(PY) -m platformio run

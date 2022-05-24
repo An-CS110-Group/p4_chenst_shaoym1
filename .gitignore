@@ -1,10 +1,4 @@
 .pio
 .vscode
-.idea
 *.o
-CMakeLists.txt
-CMakeListsPrivate.txt
-build
-cmake-build-debug
-cmake-build-sipeed-longan-nano
-.clang-format
+.idea
