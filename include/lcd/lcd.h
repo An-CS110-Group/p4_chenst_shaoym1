@@ -5,8 +5,8 @@
 #include "stdlib.h"	
 #include "gd32vf103_gpio.h"
 
-#define USE_HORIZONTAL 2  //Set horizontal or vertical screen display 0 or 1 for vertical screen 2 or 3 for horizontal screen
-#define HAS_BLK_CNTL    0
+#define USE_HORIZONTAL 3//Set horizontal or vertical screen display 0 or 1 for vertical screen 2 or 3 for horizontal screen
+#define HAS_BLK_CNTL 0
 
 #if USE_HORIZONTAL==0||USE_HORIZONTAL==1
 #define LCD_W 80
@@ -125,21 +125,26 @@ void LCD_ShowLogo(void);
 //GUI color
 
 #define DARKBLUE      	 0X01CF	//navy blue
-#define LIGHTBLUE      	 0X7D7C	//light blue 
-#define GRAYBLUE       	 0X5458 //gray blue
+#define LIGHTBLUE 0X7D7C        //light blue
+#define GRAYBLUE 0X5458         //gray blue
 //The above three colors are the colors of PANEL
- 
-#define LIGHTGREEN     	 0X841F //light green
-#define LGRAY 			     0XC618 //Light gray (PANNEL), form background color
 
-#define LGRAYBLUE        0XA651 //Light gray blue (middle layer color)
-#define LBBLUE           0X2B12 //Light brown blue (inverted color of selected item)
+#define LIGHTGREEN 0X841F//light green
+#define LGRAY 0XC618     //Light gray (PANNEL), form background color
+
+#define LGRAYBLUE 0XA651//Light gray blue (middle layer color)
+#define LBBLUE 0X2B12   //Light brown blue (inverted color of selected item)
+
+// I don't know art, but I figure that One should not use pure white.
+#define WHITE80 0XCE79// 0xCCCCCC in RGB888
+#define WHITE60 0X9CD3// 0x999999 in RGB888
+#define WHITE40 0X632C// 0x666666 in RGB888
+#define WHITE20 0X3186// 0x333333 in RGB888
+
+#define BLACK20 0XCE79// 0xCCCCCC in RGB888
+#define BLACK40 0X9CD3// 0x999999 in RGB888
+#define BLACK60 0X632C// 0x666666 in RGB888
+#define BLACK80 0X3186// 0x333333 in RGB888
 
 
-					  		 
-#endif  
-	 
-	 
-
-
-
+#endif

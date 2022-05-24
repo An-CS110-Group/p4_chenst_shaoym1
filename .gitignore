@@ -2,3 +2,4 @@
 .vscode
 *.o
 .idea
+.clang-format
