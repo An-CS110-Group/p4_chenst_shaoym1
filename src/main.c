@@ -23,7 +23,7 @@ void IO_init(void) {
 }
 
 int highScore = 0;
-int difficulty = 0;     // 0 for easy, 1 for hard
+int setting = 0;     // 0 for easy, 1 for hard
 
 int main(void) {
     IO_init();// init OLED
@@ -33,7 +33,8 @@ int main(void) {
     LCD_ShowPic(0, 0, 11, 19, cactus1);
     LCD_ShowPic(20, 0, 31, 19, cactus2);
     while (1) {
-        if (initPage()) { difficulty = settings(); }
+        if (initPage()) { setting = settings(); }
         highScore = startGame();
+        finishGame(highScore);
     }
 }

@@ -1,9 +1,9 @@
 #ifndef IMG_H
 #define IMG_H
 
-// 12 * 10
+// 12 * 20
 extern unsigned char cactus1[];
-// 12 * 10
+// 12 * 20
 extern unsigned char cactus2[];
 
 extern unsigned char trex1[];

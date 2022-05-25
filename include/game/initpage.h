@@ -7,4 +7,6 @@ int settings();
 
 int startGame();
 
+void finishGame(int);
+
 #endif//__INITPAGE_H
