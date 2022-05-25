@@ -600,7 +600,7 @@ u32 mypow(u8 m,u8 n)
                    len number of digits to display
        Return value: None
 ******************************************************************************/
-void LCD_ShowNum(u16 x,u16 y,u16 num,u8 len,u16 color)
+void LCD_ShowNum(u16 x,u16 y,u16 num,u8 len,u16 colorOfZero,u16 colorOfDigits)
 {         	
 	u8 t,temp;
 	u8 enshow=0;
@@ -611,12 +611,12 @@ void LCD_ShowNum(u16 x,u16 y,u16 num,u8 len,u16 color)
 		{
 			if(temp==0)
 			{
-				LCD_ShowChar(x+8*t,y,' ',0,color);
+				LCD_ShowChar(x+8*t,y,'0',0, colorOfZero);     // It is modified to display zeros
 				continue;
 			}else enshow=1; 
 		 	 
 		}
-	 	LCD_ShowChar(x+8*t,y,temp+48,0,color); 
+	 	LCD_ShowChar(x+8*t,y,temp+48,0, colorOfDigits);
 	}
 } 
 
@@ -629,7 +629,7 @@ void LCD_ShowNum(u16 x,u16 y,u16 num,u8 len,u16 color)
        Return value: None
 ******************************************************************************/
 void LCD_ShowNum1(u16 x,u16 y,float num,u8 len,u16 color)
-{         	
+{
 	u8 t,temp;
 	// u8 enshow=0;
 	u16 num1;
@@ -669,7 +669,8 @@ void LCD_ShowPic(u16 x1, u16 y1, u16 x2, u16 y2, u8 *img) {
     for (int i = 0; i < w * h * 2; i++) { LCD_WR_DATA8(img[i]); }
 }
 
-void LCD_ShowPic_Leave_Empty(u16 x1, u16 y1, u16 x2, u16 y2, u8 *img) {
+
+void LCD_ShowPic_No_Overwrite(u16 x1, u16 y1, u16 x2, u16 y2, u8 *img) {
     LCD_Address_Set(x1, y1, x2, y2);
     int w = x2 - x1 + 1, h = y2 - y1 + 1;
     for (int i = 0; i < w * h * 2; i++) {

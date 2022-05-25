@@ -1,8 +1,9 @@
 #include "assembly.h"
+#include "game/initpage.h"
 #include "generateMap.h"
+#include "lcd/img.h"
 #include "lcd/lcd.h"
 #include "utils.h"
-#include "lcd/img.h"
 #include <string.h>
 
 void Inp_init(void) { gpio_init(GPIOA, GPIO_MODE_IN_FLOATING, GPIO_OSPEED_50MHZ, GPIO_PIN_8); }
@@ -21,6 +22,9 @@ void IO_init(void) {
     Lcd_Init();// LCD init
 }
 
+int highScore = 0;
+int difficulty = 0;     // 0 for easy, 1 for hard
+
 int main(void) {
     IO_init();// init OLED
     // YOUR CODE HERE
@@ -28,11 +32,8 @@ int main(void) {
     //    LCD_Fill(0, 53, 160, 60, WHITE60);
     LCD_ShowPic(0, 0, 11, 19, cactus1);
     LCD_ShowPic(20, 0, 31, 19, cactus2);
-
-    //    while (1) {
-    //        LCD_Fill(0, 53, 160, 60, WHITE60);
-    //        delay_1ms(100);
-    //        LCD_Fill(0, 53, 160, 60, BLACK);
-    //        delay_1ms(100);
-    //    }
+    while (1) {
+        if (initPage()) { difficulty = settings(); }
+        highScore = startGame();
+    }
 }

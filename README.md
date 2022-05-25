@@ -56,3 +56,6 @@ Download the framework from gitlab and Check if you already have the following f
     ├── systick.c
     └── utils.c
 ```
+
+# I really have no time doing this project, so I will not try making it pretty!
+# Forgive me for bad code structure or bad code styles. :-(
