@@ -5,5 +5,9 @@
 .clang-format
 cmake-build-debug
 cmake-build-sipeed-longan-nano
+<<<<<<< HEAD
 CMakeLists.txt
 CMakeListsPrivate.txt
+=======
+.clang-format
+>>>>>>> 688555eea9b5e137ef481ea81a4362f733d5faaa
