@@ -25,3 +25,6 @@ draw:
     mv a2, t0;
     li a3, 0x300;
     jal LCD_ShowString;
+
+
+//expect to see the picture LOL
