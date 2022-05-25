@@ -24,6 +24,7 @@ int obstacles[5] = {0, 0, 0, 0, 0};    // Prepare 5 obstacles at a time. It stor
 int obstacleTypes[5] = {0, 0, 0, 0, 0};//0 for nothing, 1 for cactus1, 2 for cactus2, 3 for pter.
 
 int initPage() {
+    LCD_Clear(BLACK);
     LCD_ShowString(60, 20, (u8 *) "Dino!", BLUE);
     LCD_ShowString(30, 50, (u8 *) "Play", MAGENTA);
     LCD_ShowString(88, 50, (u8 *) "Settings", MAGENTA);
@@ -95,23 +96,19 @@ static void crawl() {
         status = 3;
         speedH = 0;
         gravity *= 4;
-        //        speedH *= 2;
     } else if (status == 2) {
         status = 3;
         gravity *= 4;
-        //        speedH *= 2;
     }
 }
 
 static void uncrawl() {
     if (status == 3) {
         gravity /= 4;
-        //        speedH /= 2;
         status = 2;
     } else if (status == 4) {
         status = 0;
         gravity /= 4;
-        //        speedH /= 2;
     }
 }
 
@@ -202,7 +199,6 @@ static void cleanForObstacle() {
 
 static bool collideDetect() {
     for (int i = 0; i < 5; ++i) {
-        LCD_ShowNum(0, 0, (u16) (dinoH), 10, BLACK, BLUE);
         switch (obstacleTypes[i]) {
             case 1:
                 if (score + 20 + 25 >= obstacles[i] + 8 && score + 25 < obstacles[i] + 10 && dinoH <= 16) return true;
