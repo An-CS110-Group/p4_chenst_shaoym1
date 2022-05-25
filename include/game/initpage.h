@@ -5,7 +5,7 @@ int initPage();
 
 int settings();
 
-int startGame();
+int startGame(float);
 
 void finishGame(int);
 

@@ -34,7 +34,7 @@ int main(void) {
     LCD_ShowPic(20, 0, 31, 19, cactus2);
     while (1) {
         if (initPage()) { setting = settings(); }
-        highScore = startGame();
+        highScore = startGame((float) setting / 1000.0f);
         finishGame(highScore);
     }
 }

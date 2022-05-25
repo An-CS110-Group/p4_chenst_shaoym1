@@ -27,6 +27,7 @@ int initPage() {
     LCD_ShowString(60, 20, (u8 *) "Dino!", BLUE);
     LCD_ShowString(30, 50, (u8 *) "Play", MAGENTA);
     LCD_ShowString(88, 50, (u8 *) "Settings", MAGENTA);
+    delay_1ms(200);
     while (1) {
         if (Get_Button(0)) return 0;
         if (Get_Button(1)) return 1;
@@ -40,8 +41,8 @@ int settings() {
     LCD_ShowString(100, 50, (u8 *) "Hard", WHITE40);
     delay_1ms(500);
     while (1) {
-        if (Get_Button(0)) return 0;
-        if (Get_Button(1)) return 1;
+        if (Get_Button(0)) return 500;
+        if (Get_Button(1)) return 1000;
     }
 }
 
@@ -217,7 +218,7 @@ static bool collideDetect() {
     return false;
 }
 
-static void InitValues() {
+static void InitValues(float settings) {
     score = 0;
     dinoH = 0.0f;
     speedH = 0;// +1000 = up 1 pixel per second
@@ -225,15 +226,15 @@ static void InitValues() {
     leg = false;// T for left, F for right
     gravity = 500;
     jumpSpeed = 6000.0;
-    difficulty = 1.0f;
+    difficulty = settings;
     for (int i = 0; i < 5; ++i) {
         obstacles[i] = 0;
         obstacleTypes[i] = 0;
     }
 }
 
-int startGame() {
-    InitValues();
+int startGame(float settings) {
+    InitValues(settings);
 
     LCD_Clear(BLACK);
     delay_1ms(100);
@@ -243,8 +244,8 @@ int startGame() {
         // Calculate in loop
         delay_1ms(25);
         if (score % 60 == 0 && difficulty > 0.5f) difficulty *= 0.95f;
-        score += 3;
-        if (score % 27 == 0) { leg = !leg; }
+        score += 5;
+        if (score % 20 == 0) { leg = !leg; }
 
         // FSM
         calculatePositionAndStatus();
