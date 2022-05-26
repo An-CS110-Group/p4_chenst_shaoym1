@@ -3,8 +3,6 @@
 
 extern char probability[50];
 
-int getNextObs(int prev, float difficulty);
-
-int displayRandGnd();
+int getNextObs(int, float);
 
 #endif//GENERATE_MAP_C

@@ -21,13 +21,75 @@ int gravity;
 double jumpSpeed;
 float difficulty;
 int obstacles[5] = {0, 0, 0, 0, 0};    // Prepare 5 obstacles at a time. It stores center hit-time of an obstacle.
-int obstacleTypes[5] = {0, 0, 0, 0, 0};//0 for nothing, 1 for cactus1, 2 for cactus2, 3 for pter.
+int obstacleTypes[5] = {0, 0, 0, 0, 0};// 0 for nothing, 1 for cactus1, 2 for cactus2, 3 for pter.
+int ground[180][2];                    // Random ground
+
+void initGnd() {
+    ground[0][0] = 0;
+    ground[0][1] = 0;
+    for (int i = 1; i < 180; ++i) {
+        if (ground[i - 1][0] == 0) {
+            if (rand() > RAND_MAX / 10 * 9) ground[i][0] = 1;
+            else
+                ground[i][0] = 0;
+        } else {
+            if (rand() > RAND_MAX / 10 * 3) ground[i][0] = 1;
+            else
+                ground[i][0] = 0;
+        }
+        if (ground[i - 1][1] == 0) {
+            if (rand() > RAND_MAX / 10 * 9) ground[i][1] = 1;
+            else
+                ground[i][1] = 0;
+        } else {
+            if (rand() > RAND_MAX / 10 * 3) ground[i][1] = 1;
+            else
+                ground[i][1] = 0;
+        }
+    }
+}
+
+void refreshGnd() {
+    for (int i = 0; i < 180; ++i) {
+        ground[i][0] = ground[i + 5][0];
+        ground[i][1] = ground[i + 5][1];
+    }
+    for (int i = 175; i < 180; ++i) {
+        if (ground[i - 1][0] == 0) {
+            if (rand() > RAND_MAX / 10 * 9) ground[i][0] = 1;
+            else
+                ground[i][0] = 0;
+        } else {
+            if (rand() > RAND_MAX / 10 * 3) ground[i][0] = 1;
+            else
+                ground[i][0] = 0;
+        }
+        if (ground[i - 1][1] == 0) {
+            if (rand() > RAND_MAX / 10 * 9) ground[i][1] = 1;
+            else
+                ground[i][1] = 0;
+        } else {
+            if (rand() > RAND_MAX / 10 * 3) ground[i][1] = 1;
+            else
+                ground[i][1] = 0;
+        }
+    }
+}
+
+void drawGnd() {
+    LCD_Fill(0, 65, 159, 65, BLACK);
+    LCD_Fill(0, 70, 159, 70, BLACK);
+    for (int i = 0; i < 160; ++i) {
+        if (ground[i][1]) LCD_DrawPoint(i, 65, WHITE60);
+        if (ground[i][0]) LCD_DrawPoint(i, 70, WHITE40);
+    }
+}
 
 int initPage() {
     LCD_Clear(BLACK);
-    LCD_ShowString(60, 20, (u8 *) "Dino!", BLUE);
-    LCD_ShowString(30, 50, (u8 *) "Play", MAGENTA);
-    LCD_ShowString(88, 50, (u8 *) "Settings", MAGENTA);
+    LCD_ShowString(50, 20, (u8 *) "Dino!", BLUE);
+    LCD_ShowString(20, 50, (u8 *) "Play", MAGENTA);
+    LCD_ShowString(78, 50, (u8 *) "Settings", MAGENTA);
     delay_1ms(200);
     while (1) {
         if (Get_Button(0)) return 0;
@@ -91,7 +153,6 @@ static void crawl() {
     if (status == 0) {
         status = 4;
         gravity *= 4;
-        //        speedH *= 2;
     } else if (status == 1) {
         status = 3;
         speedH = 0;
@@ -161,7 +222,6 @@ static void refreshObstacle() {
     for (int i = 0; i < 5; ++i) {
         if (score - obstacles[i] > 30) obstacleTypes[i] = 0;
     }
-
     for (int i = 0; i < 5; ++i) {
         if (obstacleTypes[i] == 0) {
             obstacleTypes[i] = rand() % 3 + 1;
@@ -236,6 +296,7 @@ int startGame(float settings) {
     delay_1ms(100);
     LCD_Fill(0, 66, 159, 67, WHITE60);
     obstacleInit();
+    initGnd();
     while (1) {
         // Calculate in loop
         delay_1ms(25);
@@ -253,8 +314,10 @@ int startGame(float settings) {
         }
 
         if (collideDetect()) { return score; }
+        refreshGnd();
 
         // Draw
+        drawGnd();
         cleanForObstacle();
         drawDino();
         refreshAndDrawObstacle();
@@ -266,7 +329,7 @@ void finishGame(int highscore) {
     LCD_Clear(BLACK);
     LCD_ShowString(20, 20, (u8 *) "Score:", MAGENTA);
     LCD_ShowNum(20 + 48, 20, highscore, 7, BLACK, RED);
-    LCD_ShowString(0, 45, (u8 *) "Back to main menu", WHITE40);
+    LCD_ShowString(10, 45, (u8 *) "Back to main menu", WHITE40);
     delay_1ms(500);
     while (1) {
         if (Get_Button(0)) return;

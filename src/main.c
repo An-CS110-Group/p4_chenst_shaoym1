@@ -23,13 +23,11 @@ void IO_init(void) {
 }
 
 int highScore = 0;
-int setting = 0;     // 0 for easy, 1 for hard
+int setting = 1000; // Easy for default
 
 int main(void) {
     IO_init();// init OLED
-    // YOUR CODE HERE
     LCD_Clear(BLACK);
-    //    LCD_Fill(0, 53, 160, 60, WHITE60);
     LCD_ShowPic(0, 0, 11, 19, cactus1);
     LCD_ShowPic(20, 0, 31, 19, cactus2);
     while (1) {
