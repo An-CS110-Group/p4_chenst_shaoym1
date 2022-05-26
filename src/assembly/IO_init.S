@@ -3,7 +3,7 @@
 IO_init:
 	addi sp, sp, -4
 	sw ra, 0(sp) 
-	# save ra
+	# save ra reg
 
 	call Inp_init 
 	# Inp_init();

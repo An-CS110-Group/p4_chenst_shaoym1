@@ -4,17 +4,21 @@ drawGnd:
 
 
 
+# 	addi sp, sp, -4
+# 	sw ra, 0(sp)
+
+# 	jal LCD_Fill
+
+
+# 	jal LCD_Fill
 
 
 
-
-
-
-
-
-
-
-
+# 	j exit
+# 	exit:
+# 	lw ra, 0(sp)
+# 	addi sp, sp, 4
+# 	ret
 
 
 # void drawGnd() {
@@ -25,3 +29,5 @@ drawGnd:
 #         if (ground[i][0]) LCD_DrawPoint(i, 70, WHITE40);
 #     }
 # }
+
+
