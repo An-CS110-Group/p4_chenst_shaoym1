@@ -1,7 +1,27 @@
-.globl Inp_init
-.type Inp_init, @function
-Inp_init:
-    addi sp, sp, -52
+.section .text
+.globl sign
+.type sign, @function
+sign:
+	# return (t>0) ? 1 : (t==0)? 0 : -1;
+
+	blt zero, a0, greater_than  # if t > 0, return 1
+	beq zero, a0, equal		    # if t == 0 , return 0
+	li a0, -1					# else return -1
+	j exit
+
+	greater_than:
+	li a0, 1
+	j exit
+
+	equal:
+	li a0, 0
+	j exit
+
+	exit:
+	ret
+
+unlesslabel:
+	addi sp, sp, -52
 	sw ra, 0(sp) 
 	# save ra reg
     sw s0, 4(sp)
@@ -25,20 +45,16 @@ Inp_init:
     sw s9, 40(sp)
     #store s9
     sw s10, 44(sp)
-    #into the funtion
-	addi sp, sp, -4
-	sw ra, 0(sp) 
-	# save ra
-	li a0, 1073809408 
-	# GPIOA
-	li a1, 0x04 
-	# GPIO_MODE_IN_FLOATING
-	li a2, 0x03 
-	# GPIO_OSPEED_50MHZ
-	li a3, 256 
-	# GPIO_PIN_8
-	call gpio_init 
-	# gpio_init(GPIOA, GPIO_MODE_IN_FLOATING, GPIO_OSPEED_50MHZ, GPIO_PIN_8);
+    #store s6
+    sw s11,48(sp)
+    #store s11
+	call Inp_init 
+	# Inp_init();
+	call Adc_init 
+	# Adc_init();
+	call Lcd_Init 
+	# Lcd_Init();
+
 	
 	lw ra, 0(sp) 
 	# save ra reg
@@ -67,8 +83,5 @@ Inp_init:
     lw s11,48(sp)
     #store s11
     addi sp, sp, 52
-	# return back
-
-
-
-    # void Inp_init(void) { gpio_init(GPIOA, GPIO_MODE_IN_FLOATING, GPIO_OSPEED_50MHZ, GPIO_PIN_8); }
+	ret 
+	# return

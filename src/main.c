@@ -21,6 +21,7 @@ void IO_init(void) {
     Adc_init();// A/D init
     Lcd_Init();// LCD init
 }
+extern int sign(int t);
 
 int highScore = 0;
 int setting = 1000; // Easy for default
